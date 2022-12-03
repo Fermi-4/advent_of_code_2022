@@ -7,9 +7,11 @@ fn main() -> std::io::Result<()> {
     let reader = BufReader::new(file);
     let mut current_max = 0;
     let mut current_sum = 0;
+    let mut sums: Vec<i32> = Vec::new();
     for line in reader.lines() {
         let line = line?;
         if line == "" {
+            sums.push(current_sum);
             if current_sum > current_max {
                 current_max = current_sum;
             }
@@ -19,6 +21,8 @@ fn main() -> std::io::Result<()> {
             current_sum += num;
         }
     }
-    println!("The max is: {}", current_max);
+    sums.sort();
+    let top_three: i32 = sums[sums.len()-3..sums.len()].iter().sum();
+    println!("The top three are: {}", top_three);
     Ok(())
 }
