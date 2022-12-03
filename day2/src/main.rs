@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::fs::File;
 
 fn main() {
-    let mut lookup: HashMap<(char, char), i32> = HashMap::new();
+    
     /*
 
     A - ROCK
@@ -23,19 +23,26 @@ fn main() {
     DRAW = 3
     LOSE = 0
 
+
+    PART 2:
+    X - LOSE
+    Y - DRAW
+    Z - WIN
     */
+    let mut lookup: HashMap<(char, char), i32> = HashMap::new();
                 /*  Op   U   Score */
-    lookup.insert(('A', 'X'), 4);
-    lookup.insert(('A', 'Y'), 8);
-    lookup.insert(('A', 'Z'), 3);
+    // For part 2 just reorder mappings to correspond with win/lose/draw
+    lookup.insert(('A', 'X'), 3);
+    lookup.insert(('A', 'Y'), 4);
+    lookup.insert(('A', 'Z'), 8);
     
     lookup.insert(('B', 'X'), 1);
     lookup.insert(('B', 'Y'), 5);
     lookup.insert(('B', 'Z'), 9);
     
-    lookup.insert(('C', 'X'), 7);
-    lookup.insert(('C', 'Y'), 2);
-    lookup.insert(('C', 'Z'), 6);
+    lookup.insert(('C', 'X'), 2);
+    lookup.insert(('C', 'Y'), 6);
+    lookup.insert(('C', 'Z'), 7);
 
     let file = File::open("real.txt").unwrap();
     let reader = BufReader::new(file);
@@ -51,7 +58,6 @@ fn main() {
             },
             _ => println!("Oh no!")
         };
-        // let score = lookup.get((split[0], split[1]));
     }
     println!("The end result is: {}", sum);
 }
