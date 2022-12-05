@@ -40,9 +40,8 @@ fn main() {
         println!("");
         println!("--------");
         sum += found.iter().map(|c| priority_map.get(c).unwrap()).sum::<i32>();
-
-
     }
+    
     // PART 1
     // ...
     // for line in reader.lines() {
