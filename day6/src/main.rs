@@ -4,7 +4,7 @@ use std::fs;
 
 fn main() {
     let filename = "real.txt";
-    let window_size = 4;
+    let window_size = 14;
     let rx_buffer: String = get_data(&filename);
     println!("{:?}", rx_buffer);
     for i in 0..rx_buffer.len()-window_size+1 {
