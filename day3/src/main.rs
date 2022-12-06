@@ -15,7 +15,7 @@ fn main() {
     }
     for (chr,i) in zip(65u8..=90, 27..=52) { 
         priority_map.insert(chr as char, i);
-    }    
+    }
     let file = File::open("real.txt").unwrap();
     let reader = BufReader::new(file);
     let mut sum = 0; 
@@ -25,8 +25,6 @@ fn main() {
         let line1 = line.next().unwrap().unwrap();
         let line2 = line.next().unwrap().unwrap();
         let line3 = line.next().unwrap().unwrap();
-
-
         for c in line1.chars() {
             if line2.contains(c) && line3.contains(c) {
                 found.insert(c);
