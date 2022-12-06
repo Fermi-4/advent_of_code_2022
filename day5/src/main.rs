@@ -47,13 +47,19 @@ fn main() {
         }       
     });
 
+    // for part 2
+    let mut load_q: VecDeque<char> = VecDeque::new();
+
     move_cmds.iter().for_each(|cmd| {
         let times_to_pop   = cmd[0];
         let target_to_pop  = cmd[1]-1; // 0 idx
         let target_to_push = cmd[2]-1; // 0 idx
         for _ in 0..times_to_pop {
             let c = stacks_vec[target_to_pop as usize].pop_back().unwrap();
-            stacks_vec[target_to_push as usize].push_back(c);
+            load_q.push_back(c); // part 2
+        }
+        for _ in 0..times_to_pop {
+            stacks_vec[target_to_push as usize].push_back(load_q.pop_back().unwrap());
         }
         
     });
