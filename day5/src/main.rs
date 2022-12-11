@@ -19,11 +19,7 @@ fn main() {
           .filter(|line| line.starts_with("move"))
           .map(|l| l.split_whitespace().into_iter()
                     .map(|s| String::from(s))
-                    .collect::<Vec<String>>())
-          .map(|l| l.into_iter()
                     .filter(|s| is_numeric(s))
-                    .collect::<Vec<String>>())
-          .map(|l| l.into_iter()
                     .map(|s| s.parse::<i32>().unwrap())
                     .collect::<Vec<i32>>())
           .collect::<Vec<Vec<i32>>>();
@@ -32,7 +28,6 @@ fn main() {
             .map(|l| l.unwrap())
             .filter(|l| l.contains('['))
             .collect::<Vec<String>>();
-
     println!("{:#?}", move_cmds);
     println!("{:#?}", stacks_lines);
     // load init data

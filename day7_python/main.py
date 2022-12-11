@@ -90,6 +90,14 @@ with open(PATH, "r") as file:
             print("creating subdir %s - current dir %s" % (name, current.name))
             current.create_sub_directory(name)
 
+
+# part 2
+total_disk_space=70000000
+update_size=30000000
+current_size=root.get_size()
+free_space=total_disk_space-current_size
+target_removal_amount=update_size-free_space
+
 q = queue.Queue()
 q.put(root)
 at_most=100000
@@ -99,16 +107,16 @@ while not q.empty():
     current = q.get()
     for d in current.dirs:
         q.put(d)
-    if current.get_size() <= at_most:
+    if current.get_size() >= target_removal_amount:
         found.append(current)
-
-s=0
+s=None
 for d in found:
-   s+=d.get_size()
-print(s)
-    
-print(root.get_size())
-print(current._reach_up(0))
+    if s:
+        if s.get_size() > d.get_size():
+            s=d
+    else:
+        s=d
+print("Target dir size: %i" % s.get_size())
 
             
             
