@@ -34,7 +34,7 @@ class RopeNode:
             self.next.print_data_r()
     
     def move(self, direction, steps):
-        print("Direction[%s] - Steps[%i]" % (direction, steps))
+        #print("Direction[%s] - Steps[%i]" % (direction, steps))
         for i in range(steps):
             self._move_h(direction)
             if self.next:
@@ -60,7 +60,7 @@ class RopeNode:
 
     def _update(self, target):
         diff=(target-self.loc)
-        print("ID:" + self.id + " DIFF:" + str(diff))
+        #print("ID:" + self.id + " DIFF:" + str(diff))
         assert(abs(diff[0]) < 4 and abs(diff[1]) < 4)
         if diff[0]==2 and diff[1]==0:
             # horizontal update - right
@@ -95,31 +95,42 @@ class RopeNode:
             else:
                 diff=(target-self.loc)
                 assert(diff[0]==0 and diff[1]==1)
-        elif diff[0]==2 and diff[1]==-1 or diff[0]==1 and diff[1]==-2:
-            # diag update - top right
+        elif diff[0]==2 and diff[1]==-1 or diff[0]==1 and diff[1]==-2 or diff[0]==2 and diff[1]==-2:
+            # diag update - bottom right
             self.loc[0]=self.loc[0]+1
             self.loc[1]=self.loc[1]-1
-            if diff[0]==2:
+            if diff[0]==2 and diff[1] == -1:
                 diff=(target-self.loc)
                 assert(diff[0]==1 and diff[1]==0)
+            elif diff[0]==2 and diff[1]==-2:
+                diff=(target-self.loc)
+                assert(diff[0]==1 and diff[1]==-1)
             else:
                 diff=(target-self.loc)
                 assert(diff[0]==0 and diff[1]==-1)
-        elif diff[0]==-2 and diff[1]==-1 or diff[0]==-1 and diff[1]==-2:
+        elif diff[0]==-2 and diff[1]==-1 or diff[0]==-1 and diff[1]==-2 or diff[0]==-2 and diff[1]==-2:
+            # diag update - bottom left
             self.loc[0]=self.loc[0]-1
             self.loc[1]=self.loc[1]-1
-            if diff[0]==-2:
+            if diff[0]==-2 and diff[1]==-1:
                 diff=(target-self.loc)
                 assert(diff[0]==-1 and diff[1]==0)
+            elif diff[0]==-2 and diff[1]==-2:
+                diff=(target-self.loc)
+                assert(diff[0]==-1 and diff[1]==-1)
             else:
                 diff=(target-self.loc)
                 assert(diff[0]==0 and diff[1]==-1)
-        elif diff[0]==-2 and diff[1]==1 or diff[0]==-1 and diff[1]==2:
+        elif diff[0]==-2 and diff[1]==1 or diff[0]==-1 and diff[1]==2 or diff[0]==-2 and diff[1]==2:
+            # diag update - top left
             self.loc[0]=self.loc[0]-1
             self.loc[1]=self.loc[1]+1
-            if diff[0]==-2:
+            if diff[0]==-2 and diff[1]==1:
                 diff=(target-self.loc)
                 assert(diff[0]==-1 and diff[1]==0)
+            elif diff[0]==-2 and diff[1]==2:
+                diff=(target-self.loc)
+                assert(diff[0]==-1 and diff[1]==1)
             else:
                 diff=(target-self.loc)
                 assert(diff[0]==0 and diff[1]==1)
@@ -148,11 +159,10 @@ def print_grid(loc, x,y, offset):
         print("")
         
 
-
 with open(PATH, "r") as file:
     data = file.readlines()
-    startx=100
-    starty=100
+    startx=1000
+    starty=1000
     head=RopeNode('head', startx, starty, None)
     prev=head
     for i in reversed(range(0,9)):
@@ -168,5 +178,5 @@ with open(PATH, "r") as file:
         head.get_loc_r(loc)
         #print_grid(loc, 150, 150, 75)
     tail_list=list(head.get_tail_visited())
-    print_grid(tail_list, 150, 150, 75)
     head.print_data_r()
+    print_grid(tail_list, 1030, 1030, 980)
