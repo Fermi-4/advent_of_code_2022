@@ -45,7 +45,7 @@ class RopeNode:
             self._move_h(direction)
             if self.next:
                 self.next._notify(self)
-        self.print_grid()
+        # self.print_grid()
                 
     def _move_h(self, direction):
         if direction == 'D':
@@ -177,28 +177,28 @@ with open(PATH, "r") as file:
         prev.set_next(next)
         prev=next
     head.print_data_r()
-    while True:
-        user_input=input(":")
-        key_code = ord(user_input)
-        if key_code == 87:
-            head.move('U', 1)
-        elif key_code == 65:
-            head.move('L', 1)
-        elif key_code == 83:
-            head.move('D', 1)
-        elif key_code == 68:
-            head.move('R', 1)
-        else:
-            break
+    # while True:
+    #     user_input=input(":")
+    #     key_code = ord(user_input)
+    #     if key_code == 87:
+    #         head.move('U', 1)
+    #     elif key_code == 65:
+    #         head.move('L', 1)
+    #     elif key_code == 83:
+    #         head.move('D', 1)
+    #     elif key_code == 68:
+    #         head.move('R', 1)
+    #     else:
+    #         break
 
-    # for cmd in data:
-    #     # print(cmd)
-    #     cmd=cmd.split(' ')
-    #     head.move(cmd[0].rstrip(), int(cmd[1].rstrip()))
-    #     loc=[]
-    #     head.get_loc_r(loc)
-    #     #print_grid(loc, 1030, 1030, 980)
-    #     time.sleep(0.05)
-    # tail_list=list(head.get_tail_visited())
-    # head.print_data_r()
-    # print_grid(tail_list, 1030, 1030, 950)
+    for cmd in data:
+        # print(cmd)
+        cmd=cmd.split(' ')
+        head.move(cmd[0].rstrip(), int(cmd[1].rstrip()))
+        loc=[]
+        head.get_loc_r(loc)
+        time.sleep(0.05)
+    tail_list=list(head.get_tail_visited())
+    print(len(tail_list))
+    head.print_data_r()
+    print_grid(tail_list, 1030, 1030, 950)
