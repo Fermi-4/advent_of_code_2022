@@ -1,5 +1,6 @@
 import numpy as np
-PATH = "test2.txt"
+import time
+PATH = "real2.txt"
 
 
 class RopeNode:
@@ -33,12 +34,18 @@ class RopeNode:
         if self.next:
             self.next.print_data_r()
     
+    def print_grid(self):
+        loc=[]
+        head.get_loc_r(loc)
+        print_grid(loc, 1040, 1080, 970)
+
     def move(self, direction, steps):
         #print("Direction[%s] - Steps[%i]" % (direction, steps))
         for i in range(steps):
             self._move_h(direction)
             if self.next:
                 self.next._notify(self)
+        self.print_grid()
                 
     def _move_h(self, direction):
         if direction == 'D':
@@ -143,9 +150,9 @@ class RopeNode:
 
 def print_grid(loc, x,y, offset):
     s=False
-    print("Locations")
-    for l in loc:
-        print("%i - %i" % (l[0], l[1]))
+    # print("Locations")
+    # for l in loc:
+    #     print("%i - %i" % (l[0], l[1]))
     for i in range(offset,x):
         for j in range(offset,y):
             for l in loc:
@@ -170,13 +177,28 @@ with open(PATH, "r") as file:
         prev.set_next(next)
         prev=next
     head.print_data_r()
-    for cmd in data:
-        print(cmd)
-        cmd=cmd.split(' ')
-        head.move(cmd[0].rstrip(), int(cmd[1].rstrip()))
-        loc=[]
-        head.get_loc_r(loc)
-        #print_grid(loc, 150, 150, 75)
-    tail_list=list(head.get_tail_visited())
-    head.print_data_r()
-    print_grid(tail_list, 1030, 1030, 980)
+    while True:
+        user_input=input(":")
+        key_code = ord(user_input)
+        if key_code == 87:
+            head.move('U', 1)
+        elif key_code == 65:
+            head.move('L', 1)
+        elif key_code == 83:
+            head.move('D', 1)
+        elif key_code == 68:
+            head.move('R', 1)
+        else:
+            break
+
+    # for cmd in data:
+    #     # print(cmd)
+    #     cmd=cmd.split(' ')
+    #     head.move(cmd[0].rstrip(), int(cmd[1].rstrip()))
+    #     loc=[]
+    #     head.get_loc_r(loc)
+    #     #print_grid(loc, 1030, 1030, 980)
+    #     time.sleep(0.05)
+    # tail_list=list(head.get_tail_visited())
+    # head.print_data_r()
+    # print_grid(tail_list, 1030, 1030, 950)
